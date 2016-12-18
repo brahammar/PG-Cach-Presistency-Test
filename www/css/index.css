@@ -97,6 +97,21 @@ h1 {
     display:none;
 }
 
+.event.saveFile {
+    background-color:deepskyblue;
+    display:none;
+}
+
+.event.showFile {
+    background-color:deeppink;
+    display:none;
+}
+
+.event.clearContent {
+    background-color:brown;
+    display:none;
+}
+
 @keyframes fade {
     from { opacity: 1.0; }
     50% { opacity: 0.4; }
