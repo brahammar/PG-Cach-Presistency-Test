@@ -69,6 +69,8 @@ var app = (function () {
 
     function write(event) {
         var connectionType = navigator.connection.type.toLowerCase();
+        var filesDownloaded = 0;
+
         addContent('Getting file over [' + connectionType + '].');
 
         // Note: The file system has been prefixed as of Google Chrome 12:
@@ -88,9 +90,10 @@ var app = (function () {
                         fileURL,
                         function (entry) {
                             imageFileUrls.push(fileURL);
+                            filesDownloaded++;
 
                             if (source.length === index + 1)
-                                addContent('Total number of files: ' + imageFileUrls.length);
+                                addContent('Files downloaded: ' + filesDownloaded / source.length + 1);
                         },
                         function (error) {
                             addContent('download error source ' + error.source);
@@ -117,12 +120,15 @@ var app = (function () {
             return;
         }
 
+        var url = imageFileUrls[Math.floor(Math.random() * imageFileUrls.length)];
+
         resolveLocalFileSystemURL(
-        imageFileUrls[Math.floor(Math.random() * imageFileUrls.length)],
+        url,
              function (entry) {
-                 addContent($('<img>', {
-                     src: entry.toURL()
-                 }), true);
+                 $('#content')
+                     .append($('<img>', { src: entry.toURL() }))
+                     .append($('<div>').text(entry.toURL()))
+                     .append($('<div>').text(url));
              });
     }
 
